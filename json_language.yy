@@ -29,6 +29,8 @@ yy::parser::symbol_type kk_lex(scanner &l);
 template<>
 json::json(std::initializer_list<json> t): ptr( new data<array>(t) ) { name = typeid(array).name(); }
 
+template<>
+json::json(bool t): ptr( new data<boolean>(t) ) { name = typeid(boolean).name(); }
 
 std::string json::get_string() {
     if (this->is<const char *>()) {

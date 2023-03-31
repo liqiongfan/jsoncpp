@@ -40,7 +40,7 @@ output:
 
 + C++: `long` store json `integer` value.
 + C++: `double` store json `floating` value.
-+ C++: struct boolean store the json `bool` value
++ C++: struct `boolean` or C++ `true` or `false` store the json `bool` value
 + C++: struct `null` store json `null` value
 + C++: struct `infinity` store the `+Inf` or `-Inf`
 + C++: struct `hex` store the `hex` value
