@@ -58,7 +58,7 @@ int main()
   json::object obj;
   obj.insert({"program", "jsoncpp"});  
   obj.insert({"version", "v1.0.0"});
-  obj.insert({"is_ok", true});
+  obj.insert({"is_ok", json::boolean(true)});
 
   json::array vec;
   vec.push_back("c++");
@@ -66,6 +66,7 @@ int main()
   vec.push_back("make");
   vec.push_back(1);
   vec.push_back(json::boolean(false));
+  vec.push_back(json::null());
 
   obj.insert({"items", vec});
 
@@ -76,7 +77,7 @@ int main()
 }
 
 output:
-{"items":["c++","linux","make",1,false],"is_ok":,"version":"v1.0.0","program":"jsoncpp"}
+{"items":["c++","linux","make",1,false,null],"is_ok":true,"version":"v1.0.0","program":"jsoncpp"}
 ```
 
 
