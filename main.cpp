@@ -6,14 +6,14 @@ int main()
   json::object obj;
   obj.insert({"program", "jsoncpp"});  
   obj.insert({"version", "v1.0.0"});
-  obj.insert({"is_ok", json::boolean(true)});
+  obj.insert({"is_ok", json::boolean(false)});
 
   json::array vec;
   vec.push_back("c++");
   vec.push_back("linux");
   vec.push_back("make");
   vec.push_back(1);
-  vec.push_back(json::boolean(false));
+  vec.push_back(json::boolean(true));
   vec.push_back(json::null());
 
   obj.insert({"items", vec});

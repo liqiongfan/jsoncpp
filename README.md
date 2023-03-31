@@ -77,7 +77,7 @@ int main()
 }
 
 output:
-{"items":["c++","linux","make",1,false,null],"is_ok":true,"version":"v1.0.0","program":"jsoncpp"}
+{"items":["c++","linux","make",1,true,null],"is_ok":false,"version":"v1.0.0","program":"jsoncpp"}
 ```
 
 
