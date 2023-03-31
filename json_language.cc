@@ -42,7 +42,7 @@
 
 
 // Unqualified %code blocks.
-#line 25 "json_language.yy"
+#line 23 "json_language.yy"
 
 
 yy::parser::symbol_type kk_lex(scanner &l);
@@ -888,115 +888,115 @@ namespace yy {
           switch (yyn)
             {
   case 2: // json: value $end
-#line 173 "json_language.yy"
+#line 171 "json_language.yy"
                   { l.result = yystack_[1].value.as < json > (); YYACCEPT; }
 #line 894 "json_language.cc"
     break;
 
   case 3: // array: '[' elements array_end
-#line 177 "json_language.yy"
+#line 175 "json_language.yy"
                         { yylhs.value.as < json::array > () = yystack_[1].value.as < json::array > (); }
 #line 900 "json_language.cc"
     break;
 
   case 6: // elements: value
-#line 187 "json_language.yy"
+#line 185 "json_language.yy"
                         { yylhs.value.as < json::array > ().push_back(yystack_[0].value.as < json > ());         }
 #line 906 "json_language.cc"
     break;
 
   case 7: // elements: elements ',' value
-#line 188 "json_language.yy"
+#line 186 "json_language.yy"
                         { yystack_[2].value.as < json::array > ().push_back(yystack_[0].value.as < json > ()); yylhs.value.as < json::array > ()=yystack_[2].value.as < json::array > ();  }
 #line 912 "json_language.cc"
     break;
 
   case 8: // object: '{' pairs object_end
-#line 192 "json_language.yy"
+#line 190 "json_language.yy"
                          { yylhs.value.as < json::object > () = yystack_[1].value.as < json::object > (); }
 #line 918 "json_language.cc"
     break;
 
   case 11: // pairs: key ':' value
-#line 201 "json_language.yy"
+#line 199 "json_language.yy"
                         { yylhs.value.as < json::object > ().insert({yystack_[2].value.as < std::string > (), yystack_[0].value.as < json > ()});          }
 #line 924 "json_language.cc"
     break;
 
   case 12: // pairs: pairs ',' key ':' value
-#line 202 "json_language.yy"
+#line 200 "json_language.yy"
                             { yystack_[4].value.as < json::object > ().insert({yystack_[2].value.as < std::string > (), yystack_[0].value.as < json > ()}); yylhs.value.as < json::object > () = yystack_[4].value.as < json::object > (); }
 #line 930 "json_language.cc"
     break;
 
   case 13: // key: "string"
-#line 207 "json_language.yy"
+#line 205 "json_language.yy"
            { yylhs.value.as < std::string > () = yystack_[0].value.as < std::string > (); }
 #line 936 "json_language.cc"
     break;
 
   case 14: // key: "label"
-#line 208 "json_language.yy"
+#line 206 "json_language.yy"
            { yylhs.value.as < std::string > () = yystack_[0].value.as < std::string > (); }
 #line 942 "json_language.cc"
     break;
 
   case 15: // value: "integer"
-#line 212 "json_language.yy"
+#line 210 "json_language.yy"
             { yylhs.value.as < json > () = yystack_[0].value.as < long > (); }
 #line 948 "json_language.cc"
     break;
 
   case 16: // value: "hex"
-#line 213 "json_language.yy"
+#line 211 "json_language.yy"
             { yylhs.value.as < json > () = yystack_[0].value.as < json::hex > (); }
 #line 954 "json_language.cc"
     break;
 
   case 17: // value: "boolean"
-#line 214 "json_language.yy"
+#line 212 "json_language.yy"
             { yylhs.value.as < json > () = yystack_[0].value.as < json::boolean > (); }
 #line 960 "json_language.cc"
     break;
 
   case 18: // value: "null"
-#line 215 "json_language.yy"
+#line 213 "json_language.yy"
             { yylhs.value.as < json > () = yystack_[0].value.as < json::null > (); }
 #line 966 "json_language.cc"
     break;
 
   case 19: // value: "infinity"
-#line 216 "json_language.yy"
+#line 214 "json_language.yy"
             { yylhs.value.as < json > () = yystack_[0].value.as < json::infinity > (); }
 #line 972 "json_language.cc"
     break;
 
   case 20: // value: "double"
-#line 217 "json_language.yy"
+#line 215 "json_language.yy"
             { yylhs.value.as < json > () = yystack_[0].value.as < double > (); }
 #line 978 "json_language.cc"
     break;
 
   case 21: // value: "string"
-#line 218 "json_language.yy"
+#line 216 "json_language.yy"
             { yylhs.value.as < json > () = yystack_[0].value.as < std::string > (); }
 #line 984 "json_language.cc"
     break;
 
   case 22: // value: array
-#line 219 "json_language.yy"
+#line 217 "json_language.yy"
             { yylhs.value.as < json > () = yystack_[0].value.as < json::array > (); }
 #line 990 "json_language.cc"
     break;
 
   case 23: // value: object
-#line 220 "json_language.yy"
+#line 218 "json_language.yy"
             { yylhs.value.as < json > () = yystack_[0].value.as < json::object > (); }
 #line 996 "json_language.cc"
     break;
 
   case 24: // value: error
-#line 221 "json_language.yy"
+#line 219 "json_language.yy"
             {
     error(yystack_[0].location, "Unknown token"); 
 }
@@ -1588,9 +1588,9 @@ namespace yy {
   const unsigned char
   parser::yyrline_[] =
   {
-       0,   173,   173,   177,   181,   182,   187,   188,   192,   196,
-     197,   201,   202,   207,   208,   212,   213,   214,   215,   216,
-     217,   218,   219,   220,   221
+       0,   171,   171,   175,   179,   180,   185,   186,   190,   194,
+     195,   199,   200,   205,   206,   210,   211,   212,   213,   214,
+     215,   216,   217,   218,   219
   };
 
   void
@@ -1624,4 +1624,4 @@ namespace yy {
 } // yy
 #line 1626 "json_language.cc"
 
-#line 226 "json_language.yy"
+#line 224 "json_language.yy"

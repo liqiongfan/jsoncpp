@@ -7,14 +7,12 @@
 %define parse.trace
 %define parse.error verbose
 %define parse.lac full
-%debug
 %param {scanner &l}
 %locations
 
 %code requires {
     #include <vector>
     #include <string>
-    #include "json_type.hpp"
     #include "json_scanner.hh"
 }
 

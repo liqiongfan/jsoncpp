@@ -45,14 +45,13 @@
 #ifndef YY_YY_JSON_LANGUAGE_HH_INCLUDED
 # define YY_YY_JSON_LANGUAGE_HH_INCLUDED
 // "%code requires" blocks.
-#line 14 "json_language.yy"
+#line 13 "json_language.yy"
 
     #include <vector>
     #include <string>
-    #include "json_type.hpp"
     #include "json_scanner.hh"
 
-#line 56 "json_language.hh"
+#line 55 "json_language.hh"
 
 
 # include <cstdlib> // std::abort
@@ -181,7 +180,7 @@
 #endif
 
 namespace yy {
-#line 185 "json_language.hh"
+#line 184 "json_language.hh"
 
 
 
@@ -1775,15 +1774,15 @@ switch (yykind)
   }
 
 } // yy
-#line 1779 "json_language.hh"
+#line 1778 "json_language.hh"
 
 
 // "%code provides" blocks.
-#line 21 "json_language.yy"
+#line 19 "json_language.yy"
 
     json fromJson(const std::string &str);
 
-#line 1787 "json_language.hh"
+#line 1786 "json_language.hh"
 
 
 #endif // !YY_YY_JSON_LANGUAGE_HH_INCLUDED
