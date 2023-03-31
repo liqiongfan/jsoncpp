@@ -20,6 +20,5 @@ int main()
 
   json p = obj;
   std::cout << p.toString() << std::endl;
-  
   return 0;
 }
