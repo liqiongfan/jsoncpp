@@ -17,7 +17,7 @@ int main()
   vec.push_back(json::null());
 
   obj.insert({"items", vec});
-
+  
   json p = obj;
   std::cout << p.toString() << std::endl;
   return 0;

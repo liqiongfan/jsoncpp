@@ -36,6 +36,30 @@ struct json {
     template<typename _T>
     bool is() { if (typeid(_T).name() == name) { return true; } else { return false; } }
 
+    json operator[](const std::string &key) {
+        if (this->is_object()) {
+            auto m = this->get_object();
+            if (m.count(key) == 1) {
+                return m[key];
+            }
+            return nullptr;
+        }
+
+        return nullptr;
+    }
+
+    json operator[](const int &i) {
+        if (this->is_array()) {
+            auto m = this->get_array();
+            if (m.size() - 1 < i) {
+                return nullptr;
+            }
+            return m[i];
+        }
+
+        return nullptr;
+    }
+
     bool is_array() { return this->is<array>(); }
     bool is_object() { return this->is<object>(); }
     bool is_int() { return this->is<int>(); }
@@ -47,6 +71,7 @@ struct json {
     bool is_bool() { return this->is<boolean>(); }
     bool is_infinity() { return this->is<infinity>(); }
     bool is_hex() { return this->is<hex>(); }
+    bool is_not_found() { return this->is<std::nullptr_t>(); }
 
     int get_int() { return this->get<int>(); }
     long get_long() { return this->get<long>(); }

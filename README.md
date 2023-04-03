@@ -120,6 +120,36 @@ output:
 ```
 
 
+# Quick way access data
+
+```C++
+  json::array vec;
+  vec.push_back("c++");
+  vec.push_back("linux");
+  vec.push_back("make");
+  vec.push_back(1);
+  vec.push_back(json::boolean(true));
+  vec.push_back(json::null());
+
+
+  json x = vec;
+  if (!x[0].is_not_found()) {
+    std::cout << x[6].get_string() << std::endl;
+  }
+
+
+  json::object obj;
+  obj.insert({"program", "jsoncpp"});  
+  obj.insert({"version", "v1.0.0"});
+  obj.insert({"is_ok", false});
+
+  json p = obj;
+  if (!p["is_ok"].is_not_found()) {
+    std::cout << p["is_ok"].get_bool() << std::endl;
+  }
+```
+
+
 # End
 
 Have fun.
