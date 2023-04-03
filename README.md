@@ -123,6 +123,11 @@ output:
 # Quick way access data
 
 ```C++
+
+#include <iostream>
+#include "json_language.hh"
+
+
   json::array vec;
   vec.push_back("c++");
   vec.push_back("linux");
