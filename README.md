@@ -139,7 +139,7 @@ output:
 
   json x = vec;
   if (!x[0].is_not_found()) {
-    std::cout << x[6].get_string() << std::endl;
+    std::cout << x[0].get_string() << std::endl;
   }
 
 

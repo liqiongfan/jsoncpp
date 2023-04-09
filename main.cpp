@@ -4,9 +4,9 @@
 int main()
 {
   json::object obj;
-  obj.insert({"program", "jsoncpp"});  
-  obj.insert({"version", "v1.0.0"});
-  obj.insert({"is_ok", false});
+  obj["program"] = "jsoncpp";
+  obj["version"] = "v1.0.0";
+  obj["is_ok"] = false;
 
   json::array vec;
   vec.push_back("c++");
