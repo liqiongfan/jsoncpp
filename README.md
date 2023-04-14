@@ -5,6 +5,10 @@ A C++ library for interacting with `JSON` & `JSON5`.
 
 `jsoncpp` is a c++ library that allows manipulating JSON values, including serialization and deserialization to and from strings. 
 
+# C 语言版本
+
+`https://github.com/liqiongfan/Zua`
+
 # Requirements
 + `make`
 + `re2c`
