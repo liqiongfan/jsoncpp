@@ -28,4 +28,5 @@ enum YYCONDTYPE {
 	yycKEY,
 	yycKEY1,
 	yycCOMMENTS,
+	yycCOMMENT_STR1,
 };
