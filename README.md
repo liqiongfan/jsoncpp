@@ -7,7 +7,8 @@ A C++ library for interacting with `JSON` & `JSON5`.
 
 # C Language
 
-`https://github.com/liqiongfan/Zua`
+C Language press this to obtain: [Zua](https://github.com/liqiongfan/Zua)
+<https://github.com/liqiongfan/Zua>
 
 # Requirements
 + `make`
