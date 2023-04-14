@@ -81,9 +81,9 @@ std::string json::toString(bool hex)
 
     if (this->is_infinity()) {
         if (this->get_infinity().neg) {
-            return "-inf";
+            return "-Infinity";
         } else {
-            return "inf";
+            return "Infinity";
         }
     }
 
