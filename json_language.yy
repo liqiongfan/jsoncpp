@@ -87,6 +87,10 @@ std::string json::toString(bool hex)
         }
     }
 
+    if (this->is_nan()) {
+        return "NaN";
+    }
+
     if (this->is_hex()) {
         if (hex) {
             return this->get_hex().raw_value;
@@ -171,7 +175,8 @@ auto parser::error(const location_type& loc, const std::string &msg) -> void {
 %token<json::infinity> INF "infinity"
 %token<double> DOUBLE "double"
 %token<std::string> STRING "string"
-%token<std::string> LABEL "label"
+%token<std::string> LABEL "idetifier"
+%token<json::nan> NAN "nan"
 
 %%
 
@@ -223,6 +228,7 @@ value:
 | STRING    { $$ = $1; }
 | array     { $$ = $1; }
 | object    { $$ = $1; }
+| NAN       { $$ = $1; }
 | YYerror   {
     error(@1, l.msg);
 }

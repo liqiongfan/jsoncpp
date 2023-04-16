@@ -12,7 +12,7 @@ int main()
   lineBreaks: "Look, Mom! \
 No \\n's!",
   hexadecimal: 0xdecaf,
-  leadingDecimalPoint: .8675309, andTrailing: 8675309.,
+  leadingDecimalPoint: .8675309, /*Hello comments*/andTrailing: 8675309.,
   positiveSign: +1,
   trailingComma: 'in objects', andIn: ['arrays',],
   "backwardsCompatible": 'with JSON',

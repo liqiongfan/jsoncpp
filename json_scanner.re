@@ -72,13 +72,14 @@ LABEL	= [a-zA-Z_\x80-\xff][a-zA-Z0-9_\x80-\xff]*;
 <JSON>"," { FORWARD(0, l.start - begin); return yy::parser::symbol_type(',', LOCATION); }
 <JSON>":" { FORWARD(0, l.start - begin); return yy::parser::symbol_type(':', LOCATION); }
 
-<JSON>"null"       { FORWARD(0, l.start - begin); return yy::parser::make_NUL(json::null(), LOCATION);             }
-<JSON>"-inf"       { FORWARD(0, l.start - begin); return yy::parser::make_INF(json::infinity(true), LOCATION);     }
-<JSON>("+")?"inf"  { FORWARD(0, l.start - begin); return yy::parser::make_INF(json::infinity(false), LOCATION);    }
-<JSON>"-Infinity"       { FORWARD(0, l.start - begin); return yy::parser::make_INF(json::infinity(true), LOCATION);     }
-<JSON>("+")?"Infinity"  { FORWARD(0, l.start - begin); return yy::parser::make_INF(json::infinity(false), LOCATION);    }
-<JSON>"true"       { FORWARD(0, l.start - begin); return yy::parser::make_BOOLEAN(json::boolean(true), LOCATION);  }
-<JSON>"false"      { FORWARD(0, l.start - begin); return yy::parser::make_BOOLEAN(json::boolean(false), LOCATION); }
+<JSON>'NaN'        { FORWARD(0, l.start - begin); return yy::parser::make_NAN(json::nan(), LOCATION);                   }
+<JSON>'null'       { FORWARD(0, l.start - begin); return yy::parser::make_NUL(json::null(), LOCATION);                  }
+<JSON>'-inf'       { FORWARD(0, l.start - begin); return yy::parser::make_INF(json::infinity(true), LOCATION);          }
+<JSON>("+")?'inf'  { FORWARD(0, l.start - begin); return yy::parser::make_INF(json::infinity(false), LOCATION);         }
+<JSON>'-Infinity'       { FORWARD(0, l.start - begin); return yy::parser::make_INF(json::infinity(true), LOCATION);     }
+<JSON>("+")?'Infinity'  { FORWARD(0, l.start - begin); return yy::parser::make_INF(json::infinity(false), LOCATION);    }
+<JSON>'true'       { FORWARD(0, l.start - begin); return yy::parser::make_BOOLEAN(json::boolean(true), LOCATION);       }
+<JSON>'false'      { FORWARD(0, l.start - begin); return yy::parser::make_BOOLEAN(json::boolean(false), LOCATION);      }
 
 <JSON>NL {
     FORWARD(1, 0);

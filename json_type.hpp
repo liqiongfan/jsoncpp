@@ -20,6 +20,7 @@ struct json {
 
     json() = default;
 
+    struct nan { };
     struct null{ };
     struct infinity{ bool neg; infinity(bool negative = false): neg(negative){} };
     struct boolean{ bool yes; boolean(bool y=false): yes(y){} };
@@ -70,6 +71,7 @@ struct json {
     bool is_null() { return this->is<null>(); }
     bool is_bool() { return this->is<boolean>(); }
     bool is_infinity() { return this->is<infinity>(); }
+    bool is_nan() { return this->is<nan>(); }
     bool is_hex() { return this->is<hex>(); }
     bool is_not_found() { return this->is<std::nullptr_t>(); }
 

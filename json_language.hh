@@ -390,20 +390,23 @@ namespace yy {
       // "infinity"
       char dummy6[sizeof (json::infinity)];
 
+      // "nan"
+      char dummy7[sizeof (json::nan)];
+
       // "null"
-      char dummy7[sizeof (json::null)];
+      char dummy8[sizeof (json::null)];
 
       // object
       // pairs
-      char dummy8[sizeof (json::object)];
+      char dummy9[sizeof (json::object)];
 
       // "integer"
-      char dummy9[sizeof (long)];
+      char dummy10[sizeof (long)];
 
       // "string"
-      // "label"
+      // "idetifier"
       // key
-      char dummy10[sizeof (std::string)];
+      char dummy11[sizeof (std::string)];
     };
 
     /// The size of the largest semantic type.
@@ -459,7 +462,8 @@ namespace yy {
     INF = 262,                     // "infinity"
     DOUBLE = 263,                  // "double"
     STRING = 264,                  // "string"
-    LABEL = 265                    // "label"
+    LABEL = 265,                   // "idetifier"
+    NAN = 266                      // "nan"
       };
       /// Backward compatibility alias (Bison 3.6).
       typedef token_kind_type yytokentype;
@@ -476,7 +480,7 @@ namespace yy {
     {
       enum symbol_kind_type
       {
-        YYNTOKENS = 17, ///< Number of tokens.
+        YYNTOKENS = 18, ///< Number of tokens.
         S_YYEMPTY = -2,
         S_YYEOF = 0,                             // "end of file"
         S_YYerror = 1,                           // error
@@ -488,23 +492,24 @@ namespace yy {
         S_INF = 7,                               // "infinity"
         S_DOUBLE = 8,                            // "double"
         S_STRING = 9,                            // "string"
-        S_LABEL = 10,                            // "label"
-        S_11_ = 11,                              // '['
-        S_12_ = 12,                              // ']'
-        S_13_ = 13,                              // ','
-        S_14_ = 14,                              // '{'
-        S_15_ = 15,                              // '}'
-        S_16_ = 16,                              // ':'
-        S_YYACCEPT = 17,                         // $accept
-        S_json = 18,                             // json
-        S_array = 19,                            // array
-        S_array_end = 20,                        // array_end
-        S_elements = 21,                         // elements
-        S_object = 22,                           // object
-        S_object_end = 23,                       // object_end
-        S_pairs = 24,                            // pairs
-        S_key = 25,                              // key
-        S_value = 26                             // value
+        S_LABEL = 10,                            // "idetifier"
+        S_NAN = 11,                              // "nan"
+        S_12_ = 12,                              // '['
+        S_13_ = 13,                              // ']'
+        S_14_ = 14,                              // ','
+        S_15_ = 15,                              // '{'
+        S_16_ = 16,                              // '}'
+        S_17_ = 17,                              // ':'
+        S_YYACCEPT = 18,                         // $accept
+        S_json = 19,                             // json
+        S_array = 20,                            // array
+        S_array_end = 21,                        // array_end
+        S_elements = 22,                         // elements
+        S_object = 23,                           // object
+        S_object_end = 24,                       // object_end
+        S_pairs = 25,                            // pairs
+        S_key = 26,                              // key
+        S_value = 27                             // value
       };
     };
 
@@ -566,6 +571,10 @@ namespace yy {
         value.move< json::infinity > (std::move (that.value));
         break;
 
+      case symbol_kind::S_NAN: // "nan"
+        value.move< json::nan > (std::move (that.value));
+        break;
+
       case symbol_kind::S_NUL: // "null"
         value.move< json::null > (std::move (that.value));
         break;
@@ -580,7 +589,7 @@ namespace yy {
         break;
 
       case symbol_kind::S_STRING: // "string"
-      case symbol_kind::S_LABEL: // "label"
+      case symbol_kind::S_LABEL: // "idetifier"
       case symbol_kind::S_key: // key
         value.move< std::string > (std::move (that.value));
         break;
@@ -693,6 +702,20 @@ namespace yy {
 #endif
 
 #if 201103L <= YY_CPLUSPLUS
+      basic_symbol (typename Base::kind_type t, json::nan&& v, location_type&& l)
+        : Base (t)
+        , value (std::move (v))
+        , location (std::move (l))
+      {}
+#else
+      basic_symbol (typename Base::kind_type t, const json::nan& v, const location_type& l)
+        : Base (t)
+        , value (v)
+        , location (l)
+      {}
+#endif
+
+#if 201103L <= YY_CPLUSPLUS
       basic_symbol (typename Base::kind_type t, json::null&& v, location_type&& l)
         : Base (t)
         , value (std::move (v))
@@ -795,6 +818,10 @@ switch (yykind)
         value.template destroy< json::infinity > ();
         break;
 
+      case symbol_kind::S_NAN: // "nan"
+        value.template destroy< json::nan > ();
+        break;
+
       case symbol_kind::S_NUL: // "null"
         value.template destroy< json::null > ();
         break;
@@ -809,7 +836,7 @@ switch (yykind)
         break;
 
       case symbol_kind::S_STRING: // "string"
-      case symbol_kind::S_LABEL: // "label"
+      case symbol_kind::S_LABEL: // "idetifier"
       case symbol_kind::S_key: // key
         value.template destroy< std::string > ();
         break;
@@ -937,6 +964,14 @@ switch (yykind)
         : super_type(token_type (tok), std::move (v), std::move (l))
 #else
       symbol_type (int tok, const json::infinity& v, const location_type& l)
+        : super_type(token_type (tok), v, l)
+#endif
+      {}
+#if 201103L <= YY_CPLUSPLUS
+      symbol_type (int tok, json::nan v, location_type l)
+        : super_type(token_type (tok), std::move (v), std::move (l))
+#else
+      symbol_type (int tok, const json::nan& v, const location_type& l)
         : super_type(token_type (tok), v, l)
 #endif
       {}
@@ -1175,6 +1210,21 @@ switch (yykind)
       make_LABEL (const std::string& v, const location_type& l)
       {
         return symbol_type (token::LABEL, v, l);
+      }
+#endif
+#if 201103L <= YY_CPLUSPLUS
+      static
+      symbol_type
+      make_NAN (json::nan v, location_type l)
+      {
+        return symbol_type (token::NAN, std::move (v), std::move (l));
+      }
+#else
+      static
+      symbol_type
+      make_NAN (const json::nan& v, const location_type& l)
+      {
+        return symbol_type (token::NAN, v, l);
       }
 #endif
 
@@ -1526,9 +1576,9 @@ switch (yykind)
     /// Constants.
     enum
     {
-      yylast_ = 40,     ///< Last index in yytable_.
+      yylast_ = 41,     ///< Last index in yytable_.
       yynnts_ = 10,  ///< Number of nonterminal symbols.
-      yyfinal_ = 21 ///< Termination state number.
+      yyfinal_ = 22 ///< Termination state number.
     };
 
 
@@ -1551,15 +1601,15 @@ switch (yykind)
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-       2,     2,     2,     2,    13,     2,     2,     2,     2,     2,
-       2,     2,     2,     2,     2,     2,     2,     2,    16,     2,
+       2,     2,     2,     2,    14,     2,     2,     2,     2,     2,
+       2,     2,     2,     2,     2,     2,     2,     2,    17,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-       2,    11,     2,    12,     2,     2,     2,     2,     2,     2,
+       2,    12,     2,    13,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-       2,     2,     2,    14,     2,    15,     2,     2,     2,     2,
+       2,     2,     2,    15,     2,    16,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
@@ -1573,10 +1623,10 @@ switch (yykind)
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     1,     2,     3,     4,
-       5,     6,     7,     8,     9,    10
+       5,     6,     7,     8,     9,    10,    11
     };
     // Last valid token kind.
-    const int code_max = 265;
+    const int code_max = 266;
 
     if (t <= 0)
       return symbol_kind::S_YYEOF;
@@ -1620,6 +1670,10 @@ switch (yykind)
         value.copy< json::infinity > (YY_MOVE (that.value));
         break;
 
+      case symbol_kind::S_NAN: // "nan"
+        value.copy< json::nan > (YY_MOVE (that.value));
+        break;
+
       case symbol_kind::S_NUL: // "null"
         value.copy< json::null > (YY_MOVE (that.value));
         break;
@@ -1634,7 +1688,7 @@ switch (yykind)
         break;
 
       case symbol_kind::S_STRING: // "string"
-      case symbol_kind::S_LABEL: // "label"
+      case symbol_kind::S_LABEL: // "idetifier"
       case symbol_kind::S_key: // key
         value.copy< std::string > (YY_MOVE (that.value));
         break;
@@ -1693,6 +1747,10 @@ switch (yykind)
         value.move< json::infinity > (YY_MOVE (s.value));
         break;
 
+      case symbol_kind::S_NAN: // "nan"
+        value.move< json::nan > (YY_MOVE (s.value));
+        break;
+
       case symbol_kind::S_NUL: // "null"
         value.move< json::null > (YY_MOVE (s.value));
         break;
@@ -1707,7 +1765,7 @@ switch (yykind)
         break;
 
       case symbol_kind::S_STRING: // "string"
-      case symbol_kind::S_LABEL: // "label"
+      case symbol_kind::S_LABEL: // "idetifier"
       case symbol_kind::S_key: // key
         value.move< std::string > (YY_MOVE (s.value));
         break;
@@ -1774,7 +1832,7 @@ switch (yykind)
   }
 
 } // yy
-#line 1778 "json_language.hh"
+#line 1836 "json_language.hh"
 
 
 // "%code provides" blocks.
@@ -1782,7 +1840,7 @@ switch (yykind)
 
     json fromJson(const std::string &str);
 
-#line 1786 "json_language.hh"
+#line 1844 "json_language.hh"
 
 
 #endif // !YY_YY_JSON_LANGUAGE_HH_INCLUDED
