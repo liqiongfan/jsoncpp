@@ -74,6 +74,7 @@ struct json {
     bool is_nan() { return this->is<nan>(); }
     bool is_hex() { return this->is<hex>(); }
     bool is_not_found() { return this->is<std::nullptr_t>(); }
+    bool has() { return this->is<std::nullptr_t>(); }
 
     int get_int() { return this->get<int>(); }
     long get_long() { return this->get<long>(); }
