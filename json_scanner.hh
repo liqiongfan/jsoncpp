@@ -9,8 +9,11 @@ struct scanner{
     char *ctxmarker = nullptr;
     int   state = 0;
     json  result;
-    int line = 1;
-    int column = 0;
+    int   line = 1;
+    int   column = 0;
+    std::string msg{};
+    int   subline = 1;
+    int   subcolumn = 0;
 
     scanner(const std::string &buffer) {
         this->start = (char *)buffer.data();

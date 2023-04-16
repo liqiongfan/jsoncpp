@@ -203,6 +203,8 @@ yy11:
 			++YYCURSOR;
 			{
     begin = l.start;
+    l.subline = l.line;
+    l.subcolumn = l.subcolumn;
     SETANDJUMPTO(KEY);
 }
 yy13:
@@ -214,6 +216,8 @@ yy15:
 			++YYCURSOR;
 			{
     begin = l.start;
+    l.subline = l.line;
+    l.subcolumn = l.subcolumn;
     SETANDJUMPTO(KEY1);
 }
 yy17:
@@ -390,6 +394,8 @@ yy52:
 yy53:
 			++YYCURSOR;
 			{
+    l.subline = l.line;
+    l.subcolumn = l.column;
     SETANDJUMPTO(COMMENT_STR1);
 }
 yy55:
@@ -583,26 +589,38 @@ yy106:
 /* *********************************** */
 yyc_KEY:
 		yych = *YYCURSOR;
-		if (yych <= '\f') {
-			if (yych <= '\t') {
-				if (yych >= '\t') goto yy112;
+		if (yych <= '\v') {
+			if (yych <= 0x08) {
+				if (yych >= 0x01) goto yy112;
 			} else {
-				if (yych <= '\n') goto yy114;
-				if (yych >= '\f') goto yy112;
+				if (yych <= '\t') goto yy114;
+				if (yych <= '\n') goto yy116;
+				goto yy112;
 			}
 		} else {
 			if (yych <= ' ') {
-				if (yych >= ' ') goto yy112;
+				if (yych <= '\f') goto yy114;
+				if (yych <= 0x1F) goto yy112;
+				goto yy114;
 			} else {
-				if (yych == '"') goto yy116;
+				if (yych == '"') goto yy118;
+				goto yy112;
 			}
 		}
+		++YYCURSOR;
+		{
+    l.msg = "double-quotation-marks string unclosed";
+    l.line = l.subline;
+    l.column = l.subcolumn;
+    goto syntax_error;
+}
+yy112:
 		++YYCURSOR;
 		{
     FORWARD(0, 1);
     SETANDJUMPTO(KEY);
 }
-yy112:
+yy114:
 		++YYCURSOR;
 		{
     FORWARD(0, 1);
@@ -610,7 +628,7 @@ yy112:
     begin=l.start;
     SETANDJUMPTO(KEY);
 }
-yy114:
+yy116:
 		++YYCURSOR;
 		{
     if (*(l.start-2) == '\r') {
@@ -629,7 +647,7 @@ yy114:
     l.column = 0; 
     SETANDJUMPTO(KEY);
 }
-yy116:
+yy118:
 		++YYCURSOR;
 		{
     std::string v(begin, l.start-1);
@@ -643,26 +661,38 @@ yy116:
 /* *********************************** */
 yyc_KEY1:
 		yych = *YYCURSOR;
-		if (yych <= '\f') {
-			if (yych <= '\t') {
-				if (yych >= '\t') goto yy122;
+		if (yych <= '\v') {
+			if (yych <= 0x08) {
+				if (yych >= 0x01) goto yy124;
 			} else {
-				if (yych <= '\n') goto yy124;
-				if (yych >= '\f') goto yy122;
+				if (yych <= '\t') goto yy126;
+				if (yych <= '\n') goto yy128;
+				goto yy124;
 			}
 		} else {
 			if (yych <= ' ') {
-				if (yych >= ' ') goto yy122;
+				if (yych <= '\f') goto yy126;
+				if (yych <= 0x1F) goto yy124;
+				goto yy126;
 			} else {
-				if (yych == '\'') goto yy126;
+				if (yych == '\'') goto yy130;
+				goto yy124;
 			}
 		}
+		++YYCURSOR;
+		{
+    l.msg = "single-quotation-marks string unclosed";
+    l.line = l.subline;
+    l.column = l.subcolumn;
+    goto syntax_error;
+}
+yy124:
 		++YYCURSOR;
 		{
     FORWARD(0, 1);
     SETANDJUMPTO(KEY1);
 }
-yy122:
+yy126:
 		++YYCURSOR;
 		{
     FORWARD(0, 1);
@@ -670,7 +700,7 @@ yy122:
     begin=l.start;
     SETANDJUMPTO(KEY1);
 }
-yy124:
+yy128:
 		++YYCURSOR;
 		{
     if (*(l.start-2) == '\r') {
@@ -689,7 +719,7 @@ yy124:
     l.column = 0; 
     SETANDJUMPTO(KEY1);
 }
-yy126:
+yy130:
 		++YYCURSOR;
 		{
     std::string v(begin, l.start-1);
@@ -703,28 +733,53 @@ yy126:
 /* *********************************** */
 yyc_COMMENTS:
 		yych = *YYCURSOR;
-		if (yych == '\n') goto yy132;
+		if (yych == '\n') goto yy136;
 		++YYCURSOR;
 		{
     SETANDJUMPTO(COMMENTS);
 }
-yy132:
+yy136:
 		++YYCURSOR;
 		{
+    FORWARD(1, 0);
+    l.column = 0;
     SETANDJUMPTO(JSON);
 }
 /* *********************************** */
 yyc_COMMENT_STR1:
 		yych = *YYCURSOR;
-		if (yych == '*') goto yy138;
+		if (yych <= '\n') {
+			if (yych <= 0x00) goto yy140;
+			if (yych <= '\t') goto yy142;
+			goto yy144;
+		} else {
+			if (yych == '*') goto yy146;
+			goto yy142;
+		}
+yy140:
 		++YYCURSOR;
-yy137:
+		{
+    l.msg = "multiline comments unclosed";
+    l.line = l.subline;
+    l.column = l.subcolumn;
+    goto syntax_error;
+}
+yy142:
+		++YYCURSOR;
+yy143:
 		{
     SETANDJUMPTO(COMMENT_STR1);
 }
-yy138:
+yy144:
+		++YYCURSOR;
+		{
+    FORWARD(1, 0);
+    l.column = 0;
+    SETANDJUMPTO(COMMENT_STR1);
+}
+yy146:
 		yych = *++YYCURSOR;
-		if (yych != '/') goto yy137;
+		if (yych != '/') goto yy143;
 		++YYCURSOR;
 		{
     SETANDJUMPTO(JSON);

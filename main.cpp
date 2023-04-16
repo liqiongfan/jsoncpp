@@ -3,22 +3,28 @@
 
 int main()
 {
-  json::object obj;
-  obj["program"] = "jsoncpp";
-  obj["version"] = "v1.0.0";
-  obj["is_ok"] = false;
+    
+    std::string str(R"(
+{
+  // comments 
+  unquoted: 'and you can quote me on that',
+  singleQuotes: 'I can use "double quotes" here',
+  lineBreaks: "Look, Mom! \
+No \\n's!",
+  hexadecimal: 0xdecaf,
+  leadingDecimalPoint: .8675309, andTrailing: 8675309.,
+  positiveSign: +1,
+  trailingComma: 'in objects', andIn: ['arrays',],
+  "backwardsCompatible": 'with JSON',
+}
+    )");
 
-  json::array vec;
-  vec.push_back("c++");
-  vec.push_back("linux");
-  vec.push_back("make");
-  vec.push_back(1);
-  vec.push_back(json::boolean(true));
-  vec.push_back(json::null());
+    try {
+        json v = fromJson(str);
+        std::cout << v.toString(true) << std::endl;
+    } catch (const std::string &msg) {
+        std::cout << msg << std::endl;
+    }
 
-  obj.insert({"items", vec});
-  
-  json p = obj;
-  std::cout << p.toString() << std::endl;
-  return 0;
+    return 0;
 }

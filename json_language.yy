@@ -138,8 +138,15 @@ auto yylex(scanner &l) -> parser::symbol_type {
 
 auto parser::error(const location_type& loc, const std::string &msg) -> void {
     auto message = "Unknown token appears in [line:column]:\n --> " + std::to_string(loc.end.line) + ":" + std::to_string(loc.end.column) + " | ";
-    auto buf = std::string(l.start, (l.limit-l.start > 300) ? l.start+300 : l.limit);
-    auto pos = buf.find_first_of('\n', 0);
+    std::string buf;
+    std::string::size_type pos;
+    if (l.limit== l.start - 1) {
+        buf = msg;
+        pos = std::string::npos;
+    } else {
+        buf = std::string(l.start, (l.limit-l.start > 300) ? l.start+300 : l.limit);
+        pos = buf.find_first_of('\n', 0);
+    }
     if (pos == std::string::npos) {
         message += buf;
     } else {
@@ -217,7 +224,7 @@ value:
 | array     { $$ = $1; }
 | object    { $$ = $1; }
 | YYerror   {
-    error(@1, "Unknown token"); 
+    error(@1, l.msg);
 }
 ;
 

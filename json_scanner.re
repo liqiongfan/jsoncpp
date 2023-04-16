@@ -12,8 +12,11 @@ struct scanner{
     char *ctxmarker = nullptr;
     int   state = 0;
     json  result;
-    int line = 1;
-    int column = 0;
+    int   line = 1;
+    int   column = 0;
+    std::string msg{};
+    int   subline = 1;
+    int   subcolumn = 0;
 
     scanner(const std::string &buffer) {
         this->start = (char *)buffer.data();
@@ -99,7 +102,16 @@ LABEL	= [a-zA-Z_\x80-\xff][a-zA-Z0-9_\x80-\xff]*;
 
 <JSON>["] {
     begin = l.start;
+    l.subline = l.line;
+    l.subcolumn = l.subcolumn;
     SETANDJUMPTO(KEY);
+}
+
+<KEY> EOI {
+    l.msg = "double-quotation-marks string unclosed";
+    l.line = l.subline;
+    l.column = l.subcolumn;
+    goto syntax_error;
 }
 
 <KEY>[\n] {
@@ -144,7 +156,16 @@ LABEL	= [a-zA-Z_\x80-\xff][a-zA-Z0-9_\x80-\xff]*;
 
 <JSON>['] {
     begin = l.start;
+    l.subline = l.line;
+    l.subcolumn = l.subcolumn;
     SETANDJUMPTO(KEY1);
+}
+
+<KEY1> EOI {
+    l.msg = "single-quotation-marks string unclosed";
+    l.line = l.subline;
+    l.column = l.subcolumn;
+    goto syntax_error;
 }
 
 <KEY1>[\n] {
@@ -194,18 +215,39 @@ LABEL	= [a-zA-Z_\x80-\xff][a-zA-Z0-9_\x80-\xff]*;
     SETANDJUMPTO(COMMENTS);
 }
 <JSON>"/*" {
+    l.subline = l.line;
+    l.subcolumn = l.column;
     SETANDJUMPTO(COMMENT_STR1);
 }
 <COMMENTS>[^\n] {
     SETANDJUMPTO(COMMENTS);
 }
+<COMMENTS> EOI {
+    l.msg = "single-line comments unclosed";
+    l.line = l.subline;
+    l.column = l.subcolumn;
+    goto syntax_error;
+}
 <COMMENTS>[\n] {
+    FORWARD(1, 0);
+    l.column = 0;
     SETANDJUMPTO(JSON);
 }
-<COMMENT_STR1>"*/" {
+<COMMENT_STR1> [\n] {
+    FORWARD(1, 0);
+    l.column = 0;
+    SETANDJUMPTO(COMMENT_STR1);
+}
+<COMMENT_STR1> "*/" {
     SETANDJUMPTO(JSON);
 }
-<COMMENT_STR1>[^] {
+<COMMENT_STR1> EOI {
+    l.msg = "multiline comments unclosed";
+    l.line = l.subline;
+    l.column = l.subcolumn;
+    goto syntax_error;
+}
+<COMMENT_STR1> [^] {
     SETANDJUMPTO(COMMENT_STR1);
 }
 
