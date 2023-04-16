@@ -155,7 +155,7 @@ output:
 
   json p = obj;
   if (p["is_ok"].has()) {
-    std::cout << p["is_ok"].get_bool() << std::endl;
+    std::cout << p["is_ok"].get_bool().yes << std::endl;
   }
 ```
 
