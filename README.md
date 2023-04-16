@@ -143,7 +143,7 @@ output:
 
 
   json x = vec;
-  if (!x[0].is_not_found()) {
+  if (!x[0].has()) {
     std::cout << x[0].get_string() << std::endl;
   }
 
@@ -154,7 +154,7 @@ output:
   obj.insert({"is_ok", false});
 
   json p = obj;
-  if (!p["is_ok"].is_not_found()) {
+  if (!p["is_ok"].has()) {
     std::cout << p["is_ok"].get_bool() << std::endl;
   }
 ```
