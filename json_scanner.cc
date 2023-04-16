@@ -827,6 +827,7 @@ yy140:
 		if (yych != '/') goto yy137;
 		++YYCURSOR;
 		{
+    begin = l.start;
     SETANDJUMPTO(JSON);
 }
 	}

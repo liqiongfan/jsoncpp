@@ -240,6 +240,7 @@ LABEL	= [a-zA-Z_\x80-\xff][a-zA-Z0-9_\x80-\xff]*;
     SETANDJUMPTO(COMMENT_STR1);
 }
 <COMMENT_STR1> "*/" {
+    begin = l.start;
     SETANDJUMPTO(JSON);
 }
 <COMMENT_STR1> EOI {

@@ -11,8 +11,8 @@ int main()
   singleQuotes: 'I can use "double quotes" here',
   lineBreaks: "Look, Mom! \
 No \\n's!",
-  hexadecimal: 0xdecaf,
-  leadingDecimalPoint: .8675309, /*Hello comments*/andTrailing: 8675309.,
+  hexadecimal: 0xdecaf,/*Hello comments*/
+  leadingDecimalPoint: .8675309, andTrailing: 8675309.,
   positiveSign: +1,
   trailingComma: 'in objects', andIn: ['arrays',],
   "backwardsCompatible": 'with JSON',
