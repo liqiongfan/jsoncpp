@@ -10,6 +10,9 @@ grammer:
 build:
 	g++ json_scanner.cc json_language.cc main.cpp -std=c++11 -fsanitize=address -fsanitize=leak -o main && strip main
 
+macBuild:
+	g++ json_scanner.cc json_language.cc main.cpp -std=c++11 -fsanitize=address -o main && strip main
+
 run:
 	./main
 

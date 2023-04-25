@@ -28,6 +28,17 @@ output:
 {"backwardsCompatible":"with JSON","andIn":["arrays"],"positiveSign":1,"andTrailing":8675309.000000,"leadingDecimalPoint":0.867531,"trailingComma":"in objects","hexadecimal":0xdecaf,"lineBreaks":"Look, Mom! No \\n's!","singleQuotes":"I can use \"double quotes\" here","unquoted":"and you can quote me on that"}
 ```
 
+# mac 
+When using in mac, you should use `make macBuild & make run` if your g++ compiler not support `-fsanitize=leak` option, if your mac's g++ compiler support, you can omit this notice.
+
+```shell
+$ cd jsoncpp
+$ make macBuild & make run
+
+output:
+{"backwardsCompatible":"with JSON","andIn":["arrays"],"positiveSign":1,"andTrailing":8675309.000000,"leadingDecimalPoint":0.867531,"trailingComma":"in objects","hexadecimal":0xdecaf,"lineBreaks":"Look, Mom! No \\n's!","singleQuotes":"I can use \"double quotes\" here","unquoted":"and you can quote me on that"}
+```
+
 # APIs
 
 + `json fromJson(const std::string &str)`

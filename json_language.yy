@@ -176,7 +176,10 @@ auto parser::error(const location_type& loc, const std::string &msg) -> void {
 %token<double> DOUBLE "double"
 %token<std::string> STRING "string"
 %token<std::string> LABEL "idetifier"
-%token<json::nan> NAN "nan"
+%token<json::nan> NANN "nan"
+
+%token YYEOF 0
+%token YYerror
 
 %%
 
@@ -228,7 +231,7 @@ value:
 | STRING    { $$ = $1; }
 | array     { $$ = $1; }
 | object    { $$ = $1; }
-| NAN       { $$ = $1; }
+| NANN      { $$ = $1; }
 | YYerror   {
     error(@1, l.msg);
 }

@@ -452,7 +452,7 @@ namespace yy {
       enum token_kind_type
       {
         YYEMPTY = -2,
-    YYEOF = 0,                     // "end of file"
+    YYEOF = 0,                     // YYEOF
     YYerror = 256,                 // error
     YYUNDEF = 257,                 // "invalid token"
     INT = 258,                     // "integer"
@@ -463,7 +463,7 @@ namespace yy {
     DOUBLE = 263,                  // "double"
     STRING = 264,                  // "string"
     LABEL = 265,                   // "idetifier"
-    NAN = 266                      // "nan"
+    NANN = 266                     // "nan"
       };
       /// Backward compatibility alias (Bison 3.6).
       typedef token_kind_type yytokentype;
@@ -482,7 +482,7 @@ namespace yy {
       {
         YYNTOKENS = 18, ///< Number of tokens.
         S_YYEMPTY = -2,
-        S_YYEOF = 0,                             // "end of file"
+        S_YYEOF = 0,                             // YYEOF
         S_YYerror = 1,                           // error
         S_YYUNDEF = 2,                           // "invalid token"
         S_INT = 3,                               // "integer"
@@ -493,7 +493,7 @@ namespace yy {
         S_DOUBLE = 8,                            // "double"
         S_STRING = 9,                            // "string"
         S_LABEL = 10,                            // "idetifier"
-        S_NAN = 11,                              // "nan"
+        S_NANN = 11,                             // "nan"
         S_12_ = 12,                              // '['
         S_13_ = 13,                              // ']'
         S_14_ = 14,                              // ','
@@ -571,7 +571,7 @@ namespace yy {
         value.move< json::infinity > (std::move (that.value));
         break;
 
-      case symbol_kind::S_NAN: // "nan"
+      case symbol_kind::S_NANN: // "nan"
         value.move< json::nan > (std::move (that.value));
         break;
 
@@ -818,7 +818,7 @@ switch (yykind)
         value.template destroy< json::infinity > ();
         break;
 
-      case symbol_kind::S_NAN: // "nan"
+      case symbol_kind::S_NANN: // "nan"
         value.template destroy< json::nan > ();
         break;
 
@@ -1215,16 +1215,16 @@ switch (yykind)
 #if 201103L <= YY_CPLUSPLUS
       static
       symbol_type
-      make_NAN (json::nan v, location_type l)
+      make_NANN (json::nan v, location_type l)
       {
-        return symbol_type (token::NAN, std::move (v), std::move (l));
+        return symbol_type (token::NANN, std::move (v), std::move (l));
       }
 #else
       static
       symbol_type
-      make_NAN (const json::nan& v, const location_type& l)
+      make_NANN (const json::nan& v, const location_type& l)
       {
-        return symbol_type (token::NAN, v, l);
+        return symbol_type (token::NANN, v, l);
       }
 #endif
 
@@ -1670,7 +1670,7 @@ switch (yykind)
         value.copy< json::infinity > (YY_MOVE (that.value));
         break;
 
-      case symbol_kind::S_NAN: // "nan"
+      case symbol_kind::S_NANN: // "nan"
         value.copy< json::nan > (YY_MOVE (that.value));
         break;
 
@@ -1747,7 +1747,7 @@ switch (yykind)
         value.move< json::infinity > (YY_MOVE (s.value));
         break;
 
-      case symbol_kind::S_NAN: // "nan"
+      case symbol_kind::S_NANN: // "nan"
         value.move< json::nan > (YY_MOVE (s.value));
         break;
 

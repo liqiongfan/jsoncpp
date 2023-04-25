@@ -72,7 +72,7 @@ LABEL	= [a-zA-Z_\x80-\xff][a-zA-Z0-9_\x80-\xff]*;
 <JSON>"," { FORWARD(0, l.start - begin); return yy::parser::symbol_type(',', LOCATION); }
 <JSON>":" { FORWARD(0, l.start - begin); return yy::parser::symbol_type(':', LOCATION); }
 
-<JSON>'NaN'        { FORWARD(0, l.start - begin); return yy::parser::make_NAN(json::nan(), LOCATION);                   }
+<JSON>'NaN'        { FORWARD(0, l.start - begin); return yy::parser::make_NANN(json::nan(), LOCATION);                  }
 <JSON>'null'       { FORWARD(0, l.start - begin); return yy::parser::make_NUL(json::null(), LOCATION);                  }
 <JSON>'-inf'       { FORWARD(0, l.start - begin); return yy::parser::make_INF(json::infinity(true), LOCATION);          }
 <JSON>("+")?'inf'  { FORWARD(0, l.start - begin); return yy::parser::make_INF(json::infinity(false), LOCATION);         }

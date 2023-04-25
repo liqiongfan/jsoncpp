@@ -510,7 +510,7 @@ yy71:
 			if (yybm[0+yych] & 64) {
 				goto yy31;
 			}
-			{ FORWARD(0, l.start - begin); return yy::parser::make_NAN(json::nan(), LOCATION);                   }
+			{ FORWARD(0, l.start - begin); return yy::parser::make_NANN(json::nan(), LOCATION);                  }
 yy73:
 			yych = *++YYCURSOR;
 			if (yych == 'L') goto yy80;
