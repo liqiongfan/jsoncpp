@@ -930,118 +930,130 @@ namespace yy {
 #line 931 "json_language.cc"
     break;
 
-  case 6: // elements: value
+  case 6: // elements: %empty
 #line 200 "json_language.yy"
-                        { yylhs.value.as < json::array > ().push_back(yystack_[0].value.as < json > ());         }
+                        {                           }
 #line 937 "json_language.cc"
     break;
 
-  case 7: // elements: elements ',' value
+  case 7: // elements: value
 #line 201 "json_language.yy"
-                        { yystack_[2].value.as < json::array > ().push_back(yystack_[0].value.as < json > ()); yylhs.value.as < json::array > ()=yystack_[2].value.as < json::array > ();  }
+                        { yylhs.value.as < json::array > ().push_back(yystack_[0].value.as < json > ());         }
 #line 943 "json_language.cc"
     break;
 
-  case 8: // object: '{' pairs object_end
-#line 205 "json_language.yy"
-                         { yylhs.value.as < json::object > () = yystack_[1].value.as < json::object > (); }
+  case 8: // elements: elements ',' value
+#line 202 "json_language.yy"
+                        { yystack_[2].value.as < json::array > ().push_back(yystack_[0].value.as < json > ()); yylhs.value.as < json::array > ()=yystack_[2].value.as < json::array > ();  }
 #line 949 "json_language.cc"
     break;
 
-  case 11: // pairs: key ':' value
-#line 214 "json_language.yy"
-                        { yylhs.value.as < json::object > ().insert({yystack_[2].value.as < std::string > (), yystack_[0].value.as < json > ()});          }
+  case 9: // object: '{' pairs object_end
+#line 206 "json_language.yy"
+                         { yylhs.value.as < json::object > () = yystack_[1].value.as < json::object > (); }
 #line 955 "json_language.cc"
     break;
 
-  case 12: // pairs: pairs ',' key ':' value
+  case 12: // pairs: %empty
 #line 215 "json_language.yy"
-                            { yystack_[4].value.as < json::object > ().insert({yystack_[2].value.as < std::string > (), yystack_[0].value.as < json > ()}); yylhs.value.as < json::object > () = yystack_[4].value.as < json::object > (); }
+                        {                               }
 #line 961 "json_language.cc"
     break;
 
-  case 13: // key: "string"
-#line 220 "json_language.yy"
-           { yylhs.value.as < std::string > () = yystack_[0].value.as < std::string > (); }
+  case 13: // pairs: key ':' value
+#line 216 "json_language.yy"
+                        { yylhs.value.as < json::object > ().insert({yystack_[2].value.as < std::string > (), yystack_[0].value.as < json > ()});          }
 #line 967 "json_language.cc"
     break;
 
-  case 14: // key: "idetifier"
-#line 221 "json_language.yy"
-           { yylhs.value.as < std::string > () = yystack_[0].value.as < std::string > (); }
+  case 14: // pairs: pairs ',' key ':' value
+#line 217 "json_language.yy"
+                            { yystack_[4].value.as < json::object > ().insert({yystack_[2].value.as < std::string > (), yystack_[0].value.as < json > ()}); yylhs.value.as < json::object > () = yystack_[4].value.as < json::object > (); }
 #line 973 "json_language.cc"
     break;
 
-  case 15: // value: "integer"
-#line 225 "json_language.yy"
-            { yylhs.value.as < json > () = yystack_[0].value.as < long > (); }
+  case 15: // key: "string"
+#line 222 "json_language.yy"
+           { yylhs.value.as < std::string > () = yystack_[0].value.as < std::string > (); }
 #line 979 "json_language.cc"
     break;
 
-  case 16: // value: "hex"
-#line 226 "json_language.yy"
-            { yylhs.value.as < json > () = yystack_[0].value.as < json::hex > (); }
+  case 16: // key: "idetifier"
+#line 223 "json_language.yy"
+           { yylhs.value.as < std::string > () = yystack_[0].value.as < std::string > (); }
 #line 985 "json_language.cc"
     break;
 
-  case 17: // value: "boolean"
+  case 17: // value: "integer"
 #line 227 "json_language.yy"
-            { yylhs.value.as < json > () = yystack_[0].value.as < json::boolean > (); }
+            { yylhs.value.as < json > () = yystack_[0].value.as < long > (); }
 #line 991 "json_language.cc"
     break;
 
-  case 18: // value: "null"
+  case 18: // value: "hex"
 #line 228 "json_language.yy"
-            { yylhs.value.as < json > () = yystack_[0].value.as < json::null > (); }
+            { yylhs.value.as < json > () = yystack_[0].value.as < json::hex > (); }
 #line 997 "json_language.cc"
     break;
 
-  case 19: // value: "infinity"
+  case 19: // value: "boolean"
 #line 229 "json_language.yy"
-            { yylhs.value.as < json > () = yystack_[0].value.as < json::infinity > (); }
+            { yylhs.value.as < json > () = yystack_[0].value.as < json::boolean > (); }
 #line 1003 "json_language.cc"
     break;
 
-  case 20: // value: "double"
+  case 20: // value: "null"
 #line 230 "json_language.yy"
-            { yylhs.value.as < json > () = yystack_[0].value.as < double > (); }
+            { yylhs.value.as < json > () = yystack_[0].value.as < json::null > (); }
 #line 1009 "json_language.cc"
     break;
 
-  case 21: // value: "string"
+  case 21: // value: "infinity"
 #line 231 "json_language.yy"
-            { yylhs.value.as < json > () = yystack_[0].value.as < std::string > (); }
+            { yylhs.value.as < json > () = yystack_[0].value.as < json::infinity > (); }
 #line 1015 "json_language.cc"
     break;
 
-  case 22: // value: array
+  case 22: // value: "double"
 #line 232 "json_language.yy"
-            { yylhs.value.as < json > () = yystack_[0].value.as < json::array > (); }
+            { yylhs.value.as < json > () = yystack_[0].value.as < double > (); }
 #line 1021 "json_language.cc"
     break;
 
-  case 23: // value: object
+  case 23: // value: "string"
 #line 233 "json_language.yy"
-            { yylhs.value.as < json > () = yystack_[0].value.as < json::object > (); }
+            { yylhs.value.as < json > () = yystack_[0].value.as < std::string > (); }
 #line 1027 "json_language.cc"
     break;
 
-  case 24: // value: "nan"
+  case 24: // value: array
 #line 234 "json_language.yy"
-            { yylhs.value.as < json > () = yystack_[0].value.as < json::nan > (); }
+            { yylhs.value.as < json > () = yystack_[0].value.as < json::array > (); }
 #line 1033 "json_language.cc"
     break;
 
-  case 25: // value: error
+  case 25: // value: object
 #line 235 "json_language.yy"
+            { yylhs.value.as < json > () = yystack_[0].value.as < json::object > (); }
+#line 1039 "json_language.cc"
+    break;
+
+  case 26: // value: "nan"
+#line 236 "json_language.yy"
+            { yylhs.value.as < json > () = yystack_[0].value.as < json::nan > (); }
+#line 1045 "json_language.cc"
+    break;
+
+  case 27: // value: error
+#line 237 "json_language.yy"
             {
     error(yystack_[0].location, l.msg);
 }
-#line 1041 "json_language.cc"
+#line 1053 "json_language.cc"
     break;
 
 
-#line 1045 "json_language.cc"
+#line 1057 "json_language.cc"
 
             default:
               break;
@@ -1528,30 +1540,30 @@ namespace yy {
 
   const signed char parser::yypact_ninf_ = -14;
 
-  const signed char parser::yytable_ninf_ = -1;
+  const signed char parser::yytable_ninf_ = -7;
 
   const signed char
   parser::yypact_[] =
   {
-      24,   -14,   -14,   -14,   -14,   -14,   -14,   -14,   -14,   -14,
-      24,    12,    11,   -14,   -14,    19,    27,   -14,   -14,   -14,
+      39,   -14,   -14,   -14,   -14,   -14,   -14,   -14,   -14,   -14,
+      24,    12,    11,   -14,   -14,    19,    42,   -14,   -14,   -14,
      -13,     6,   -14,   -14,   -14,     1,   -14,     8,   -14,   -14,
-      24,   -14,   -14,   -14,    17,   -14,    24,   -14
+      39,   -14,   -14,   -14,    17,   -14,    39,   -14
   };
 
   const signed char
   parser::yydefact_[] =
   {
-       0,    25,    15,    16,    17,    18,    19,    20,    21,    24,
-       0,     0,     0,    22,    23,     0,     0,     6,    13,    14,
-       0,     0,     1,     2,     4,     0,     3,     0,     9,     8,
-       0,     5,     7,    10,     0,    11,     0,    12
+       0,    27,    17,    18,    19,    20,    21,    22,    23,    26,
+       0,    12,     0,    24,    25,     0,     0,     7,    15,    16,
+       0,     0,     1,     2,     4,     0,     3,     0,    10,     9,
+       0,     5,     8,    11,     0,    13,     0,    14
   };
 
   const signed char
   parser::yypgoto_[] =
   {
-     -14,   -14,   -14,   -14,   -14,   -14,   -14,   -14,    10,   -10
+     -14,   -14,   -14,   -14,   -14,   -14,   -14,   -14,    14,   -10
   };
 
   const signed char
@@ -1566,8 +1578,9 @@ namespace yy {
       17,    27,     1,    28,     2,     3,     4,     5,     6,     7,
        8,    22,     9,    10,    31,    32,    11,    18,    19,    23,
       35,    18,    19,    30,    33,     1,    37,     2,     3,     4,
-       5,     6,     7,     8,    36,     9,    10,    34,     0,    11,
-      24,    25
+       5,     6,     7,     8,    36,     9,    10,    -6,    -6,    11,
+       1,    34,     2,     3,     4,     5,     6,     7,     8,     0,
+       9,    10,     0,     0,    11,    24,    25
   };
 
   const signed char
@@ -1576,8 +1589,9 @@ namespace yy {
       10,    14,     1,    16,     3,     4,     5,     6,     7,     8,
        9,     0,    11,    12,    13,    25,    15,     9,    10,     0,
       30,     9,    10,    17,    16,     1,    36,     3,     4,     5,
-       6,     7,     8,     9,    17,    11,    12,    27,    -1,    15,
-      13,    14
+       6,     7,     8,     9,    17,    11,    12,    13,    14,    15,
+       1,    27,     3,     4,     5,     6,     7,     8,     9,    -1,
+      11,    12,    -1,    -1,    15,    13,    14
   };
 
   const signed char
@@ -1592,17 +1606,17 @@ namespace yy {
   const signed char
   parser::yyr1_[] =
   {
-       0,    18,    19,    20,    21,    21,    22,    22,    23,    24,
-      24,    25,    25,    26,    26,    27,    27,    27,    27,    27,
-      27,    27,    27,    27,    27,    27
+       0,    18,    19,    20,    21,    21,    22,    22,    22,    23,
+      24,    24,    25,    25,    25,    26,    26,    27,    27,    27,
+      27,    27,    27,    27,    27,    27,    27,    27
   };
 
   const signed char
   parser::yyr2_[] =
   {
-       0,     2,     2,     3,     1,     2,     1,     3,     3,     1,
-       2,     3,     5,     1,     1,     1,     1,     1,     1,     1,
-       1,     1,     1,     1,     1,     1
+       0,     2,     2,     3,     1,     2,     0,     1,     3,     3,
+       1,     2,     0,     3,     5,     1,     1,     1,     1,     1,
+       1,     1,     1,     1,     1,     1,     1,     1
   };
 
 
@@ -1625,9 +1639,9 @@ namespace yy {
   const unsigned char
   parser::yyrline_[] =
   {
-       0,   186,   186,   190,   194,   195,   200,   201,   205,   209,
-     210,   214,   215,   220,   221,   225,   226,   227,   228,   229,
-     230,   231,   232,   233,   234,   235
+       0,   186,   186,   190,   194,   195,   200,   201,   202,   206,
+     210,   211,   215,   216,   217,   222,   223,   227,   228,   229,
+     230,   231,   232,   233,   234,   235,   236,   237
   };
 
   void
@@ -1659,6 +1673,6 @@ namespace yy {
 
 
 } // yy
-#line 1663 "json_language.cc"
+#line 1677 "json_language.cc"
 
-#line 240 "json_language.yy"
+#line 242 "json_language.yy"

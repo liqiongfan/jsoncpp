@@ -197,7 +197,8 @@ array_end:
 
 
 elements:
- value                  { $$.push_back($1);         }
+  %empty                {                           }
+| value                 { $$.push_back($1);         }
 | elements ',' value    { $1.push_back($3); $$=$1;  }
 ;
 
@@ -211,7 +212,8 @@ object_end:
 ;
 
 pairs:
-  key ':' value         { $$.insert({$1, $3});          }
+  %empty                    {                               }
+| key ':' value             { $$.insert({$1, $3});          }
 | pairs ',' key ':' value   { $1.insert({$3, $5}); $$ = $1; }
 ;
 
