@@ -956,13 +956,13 @@ namespace yy {
 
   case 12: // pairs: %empty
 #line 215 "json_language.yy"
-                        {                               }
+                            {                               }
 #line 961 "json_language.cc"
     break;
 
   case 13: // pairs: key ':' value
 #line 216 "json_language.yy"
-                        { yylhs.value.as < json::object > ().insert({yystack_[2].value.as < std::string > (), yystack_[0].value.as < json > ()});          }
+                            { yylhs.value.as < json::object > ().insert({yystack_[2].value.as < std::string > (), yystack_[0].value.as < json > ()});          }
 #line 967 "json_language.cc"
     break;
 
